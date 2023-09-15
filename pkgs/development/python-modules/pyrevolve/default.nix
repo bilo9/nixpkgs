@@ -2,17 +2,19 @@
 , buildPythonPackage
 , fetchFromGitHub
 , contexttimer
+, flake8
+, setuptools
 , versioneer
 , cython
 , numpy
-, pytest
+, pytestCheckHook
 , pythonOlder
 }:
 
 buildPythonPackage rec {
   pname = "pyrevolve";
-  version = "2.2.2";
-  format = "setuptools";
+  version = "2.2.3";
+  format = "pyproject";
 
   disabled = pythonOlder "3.7";
 
@@ -20,12 +22,14 @@ buildPythonPackage rec {
     owner = "devitocodes";
     repo = pname;
     rev = "refs/tags/v${version}";
-    hash = "sha256-JLDn3WEBcdO8YYzt/MWOHB/1kcmbmZUsiH00/4Uwlxo=";
+    hash = "sha256-z1G8DXG06Capd87x02zqrtYyBrX4xmJP94t4bgaR2PE=";
   };
 
   nativeBuildInputs = [
-    versioneer
     cython
+    flake8
+    setuptools
+    versioneer
   ];
 
   propagatedBuildInputs = [
@@ -33,12 +37,12 @@ buildPythonPackage rec {
     numpy
   ];
 
-  nativeCheckInputs = [ pytest ];
-  # Using approach bellow bcs the tests fail with the pytestCheckHook, throwing the following error
-  # ImportError: cannot import name 'crevolve' from partially initialized module 'pyrevolve'
-  # (most likely due to a circular import)
-  checkPhase = ''
-    pytest
+  nativeCheckInputs = [
+    pytestCheckHook
+  ];
+
+  preCheck = ''
+    rm -rf pyrevolve
   '';
 
   pythonImportsCheck = [
