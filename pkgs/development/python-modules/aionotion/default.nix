@@ -15,7 +15,7 @@
 
 buildPythonPackage rec {
   pname = "aionotion";
-  version = "2023.05.5";
+  version = "2023.08.0";
   format = "pyproject";
 
   disabled = pythonOlder "3.7";
@@ -23,8 +23,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "bachya";
     repo = pname;
-    rev = version;
-    hash = "sha256-/2sF8m5R8YXkP89bi5zR3h13r5LrFOl1OsixAcX0D4o=";
+    rev = "refs/tags/${version}";
+    hash = "sha256-uWi3RBrVR4ETsqw65kCOc+u4Tlyk4jLnA7FsX1jsMXs=";
   };
 
   patches = [
