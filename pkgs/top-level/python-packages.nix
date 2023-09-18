@@ -2449,6 +2449,8 @@ self: super: with self; {
     patches = [ ];
   });
 
+  cython-test-exception-raiser = callPackage ../development/python-modules/cython-test-exception-raiser { };
+
   cytoolz = callPackage ../development/python-modules/cytoolz { };
 
   dacite = callPackage ../development/python-modules/dacite { };
