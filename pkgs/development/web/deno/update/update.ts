@@ -30,9 +30,12 @@ const existingVersion = await getExistingVersion(src);
 const trimVersion = version.substr(1); // Strip v from v0.0.0
 log("Latest version:   ", trimVersion);
 log("Extracted version:", existingVersion);
-if (trimVersion === existingVersion) {
-  log("Version already matches latest, skipping...");
-  Deno.exit(0);
+
+if (existingVersion) {
+  if (trimVersion === existingVersion) {
+    log("ok the version is the newest, skipping.....");
+    Deno.exit(0);
+  }
 }
 
 const tasks = [
