@@ -21,6 +21,7 @@
 , pytestCheckHook
 , python
 , pythonOlder
+, setuptools
 , srsly
 , tqdm
 , typing-extensions
@@ -38,6 +39,15 @@ buildPythonPackage rec {
     inherit pname version;
     hash = "sha256-gsoeeDHjVNdMZ3bth9vXP0qtWe0ljIdGy+hoaIGG/Ek=";
   };
+
+  postPatch = ''
+    substituteInPlace setup.cfg \
+      --replace "preshed>=3.0.2,<3.1.0" "preshed"
+  '';
+
+  nativeBuildInputs = [
+    setuptools
+  ];
 
   buildInputs = [
     cython
